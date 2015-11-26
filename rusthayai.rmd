@@ -1,0 +1,25 @@
+---
+title: "RからRustの関数を使う"
+date: "`r Sys.Date()`"
+author: "Hiroaki Yutani\n(@yutannihilation)"
+output:
+  revealjs::revealjs_presentation:
+    transition: "fade"
+    theme: "solarized"
+    self_contained: false
+    includes:
+      in_header: "include/in_header.html"
+---
+
+## Rustとは
+
+* はやい
+* Cの置き換えを目指している
+
+![](rust-logo-128x128-blk.png)
+
+## FFI
+
+## Rffi
+
+## 

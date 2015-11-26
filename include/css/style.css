@@ -1,0 +1,7 @@
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal p {
+  font-family: 'Montserrat', 'Meiryo', sans-serif;
+}
+
+div.section code {
+  font-family: 'Source Code Pro', monospace;
+}

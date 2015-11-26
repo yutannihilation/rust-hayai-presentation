@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Hiroaki Yutani (@yutannihilation)" />
+  <meta name="dcterms.date" content="2015-11-27" />
+  <title>RからRustの関数を使う</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="rusthayai_files\revealjs_presentation/css/reveal.min.css"/>
+
+
+
+<link rel="stylesheet" href="rusthayai_files\revealjs_presentation/css/theme/solarized.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+     .reveal .title {
+        margin-top: 125px;
+        margin-bottom: 50px;
+     }
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'rusthayai_files\revealjs_presentation/css/print/pdf.css' : 'rusthayai_files\revealjs_presentation/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="rusthayai_files\revealjs_presentation/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='include/css/style.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">RからRustの関数を使う</h1>
+    <h2 class="author">Hiroaki Yutani (<span class="citation" data-cites="yutannihilation">@yutannihilation</span>)</h2>
+    <h3 class="date">2015-11-27</h3>
+</section>
+
+<section id="rust" class="slide level2">
+<h1>Rustとは</h1>
+<ul>
+<li>はやい</li>
+<li>Cの置き換えを目指している</li>
+</ul>
+<p><img src="rust-logo-128x128-blk.png" /></p>
+</section>
+<section id="ffi" class="slide level2">
+<h1>FFI</h1>
+</section>
+<section id="rffi" class="slide level2">
+<h1>Rffi</h1>
+</section>
+<section id="section" class="slide level2">
+<h1></h1>
+</section>
+    </div>
+  </div>
+
+  <script src="rusthayai_files\revealjs_presentation/lib/js/head.min.js"></script>
+  <script src="rusthayai_files\revealjs_presentation/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'fade',
+        backgroundTransition: 'default',
+        
+        // Optional libraries used to extend on reveal.js
+        dependencies: []});
+    </script>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+  </body>
+</html>
