@@ -3,6 +3,12 @@
   text-transform: none;
 }
 
-div.section code {
+.reveal p, .reveal li {
+  font-size: 1.5em;
+}
+
+.reveal code {
   font-family: 'Source Code Pro', monospace;
+  font-size: 2em;
+  line-height: 1;
 }

@@ -6,9 +6,15 @@ output:
   revealjs::revealjs_presentation:
     transition: "fade"
     theme: "solarized"
+    highlight: "zenburn"
     self_contained: false
     includes:
       in_header: "include/in_header.html"
+    center: false
+    toc: true
+    pandoc_args: [
+      "--from", "markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures"
+    ]
 ---
 
 ## Rustとは
@@ -25,13 +31,17 @@ output:
 * ゼロから覚えるならC/C++よりRustの方が楽そう
 * C/C++は環境構築が大変。Rustはインストーラでさくっとインストールできる
 
-> - もしかしてRustを覚えればCとかC++触らなくてもいいのでは？？
+## なぜRustか
+
+→ もしかしてRustを覚えればCとかC++触らなくてもいいのでは？？
 
 ## FFI(Foreign Function Interface)
 
 * あるプログラミング言語から他のプログラミング言語で定義された関数などを利用するための機構
 
-> - つまりRcppみたいな？？（あんまり理解してない）
+## FFI(Foreign Function Interface)
+
+つまりRcppみたいな？？（あんまり理解してない）
 
 ## 各言語のFFI
 
@@ -46,34 +56,35 @@ output:
 
 ## Rffiナンデ？？？
 
-Windowsではビルド失敗！
-
-![](https://pbs.twimg.com/media/CTM7J__VEAA7Wuv.jpg)
+Windowsではインストール失敗！
 
 ## Rtools 3.3問題
 
-読んでください：http://notchained.hatenablog.com/entry/2015/11/08/205523
+読んでください：
+[Rtools3.3以降を使うWindows用Rパッケージの構成](http://notchained.hatenablog.com/entry/2015/11/08/205523)
 
-## 自分でがんばってビルドする
+## 自分でがんばってbuildする
 
 ビルドしました。
 
->- ビルドできない
+>- MobaXtermを使う
 >- MobaXtermは32ビット版しかビルドできないことに気づく
 >- MSYS2を使う
->- つらい
+>- makeはMSYS2を使うけど、gccはRtoolsを使う
+>- ...
 
+## 自分でがんばってbuildする
 
-## 自分でRffiパッケージをつくる
+つらかった。
+
+## Rffiパッケージをfolkする
 
 元のパッケージをフォークしてきてもろもろ書き換える
 
 https://github.com/yutannihilation/Rffi
 
 
-## いよいよRからRustの関数をつかう
-
-こんな感じのRustの関数を書く
+## Rustのコード（.rs）を書く
 
 ```rs
 #[no_mangle]
@@ -86,9 +97,7 @@ pub extern fn fib(n: u32) -> u32 {
 }
 ```
 
-## いよいよRからRustの関数をつかう
-
-こんな感じのCargo.tomlを置く
+## Cargo.tomlを置く
 
 ```toml
 [package]
@@ -101,23 +110,24 @@ name = "fib"
 crate-type = ["dylib"]
 ```
 
-## いよいよRからRustの関数をつかう
-
-こんな感じのRの関数をつくる
+## Rの関数をつくる
 
 ```r
 fib <- function(x){
   Rffi::callCIF(
-    cif = Rffi::prepCIF(retType  = Rffi::uint32Type, argTypes = list(Rffi::uint32Type)),
+    cif = Rffi::prepCIF(
+      retType  = Rffi::uint32Type,
+      argTypes = list(Rffi::uint32Type)
+    ),
     sym = "fib",
     x
   )
 }
 ```
 
-## いよいよRからRustの関数をつかう
+## It works
 
-動かす
+動いた！
 
 ```r
 fib(40L)
@@ -128,4 +138,4 @@ fib(40L)
 
 >- Rustははやい
 >- RustははやいけどRからRustを使うまでには時間がかかる
->- 
+>- C/C++を避けるためにRustを始めたはずが、ほぼほぼC/C++との格闘だった...
