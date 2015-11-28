@@ -1,5 +1,6 @@
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal p {
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal p, .reveal ul, .reveal li {
   font-family: 'Montserrat', 'Meiryo', sans-serif;
+  text-transform: none;
 }
 
 div.section code {

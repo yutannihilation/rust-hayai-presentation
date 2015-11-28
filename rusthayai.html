@@ -5,11 +5,33 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Hiroaki Yutani (@yutannihilation)" />
   <meta name="dcterms.date" content="2015-11-28" />
-  <title>RからRustの関数を使う</title>
+  <title>「RからRustの関数をつかう → はやい」と言おうとしたらめっちゃ時間がかかった話</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="rusthayai_files/revealjs_presentation/css/reveal.min.css"/>
+
+
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+
 <link rel="stylesheet" href="rusthayai_files/revealjs_presentation/css/theme/solarized.css" id="theme">
 
 
@@ -81,7 +103,7 @@
     <div class="slides">
 
 <section>
-    <h1 class="title">RからRustの関数を使う</h1>
+    <h1 class="title">「RからRustの関数をつかう → はやい」と言おうとしたらめっちゃ時間がかかった話</h1>
     <h2 class="author">Hiroaki Yutani (<span class="citation" data-cites="yutannihilation">@yutannihilation</span>)</h2>
     <h3 class="date">2015-11-28</h3>
 </section>
@@ -89,19 +111,117 @@
 <section id="rust" class="slide level2">
 <h1>Rustとは</h1>
 <ul>
+<li>Mozillaが開発中の言語</li>
 <li>はやい</li>
-<li>Cの置き換えを目指している</li>
+<li>安全</li>
 </ul>
 <p><img src="rust-logo-128x128-blk.png" /></p>
 </section>
+<section id="rust" class="slide level2">
+<h1>なぜRustか</h1>
+<ul>
+<li>Rcppガチ勢コワイ</li>
+<li>ゼロから覚えるならC/C++よりRustの方が楽そう</li>
+<li>C/C++は環境構築が大変。Rustはインストーラでさくっとインストールできる</li>
+</ul>
+<ul>
+<li class="fragment">もしかしてRustを覚えればCとかC++触らなくてもいいのでは？？</li>
+</ul>
+</section>
+<section id="ffiforeign-function-interface" class="slide level2">
+<h1>FFI(Foreign Function Interface)</h1>
+<ul>
+<li>あるプログラミング言語から他のプログラミング言語で定義された関数などを利用するための機構</li>
+</ul>
+<ul>
+<li class="fragment">つまりRcppみたいな？？（あんまり理解してない）</li>
+</ul>
+</section>
 <section id="ffi" class="slide level2">
-<h1>FFI</h1>
+<h1>各言語のFFI</h1>
+<ul>
+<li class="fragment">Ruby: Ruby-FFI</li>
+<li class="fragment">Python: CFFI</li>
+<li class="fragment">Node.js: node-ffi</li>
+<li class="fragment">R: Rffi</li>
+</ul>
 </section>
 <section id="rffi" class="slide level2">
 <h1>Rffi</h1>
+<p>なんだRでもFFI使えるのか。ほっ。</p>
 </section>
-<section id="section" class="slide level2">
-<h1></h1>
+<section id="rffi" class="slide level2">
+<h1>Rffiナンデ？？？</h1>
+<p>Windowsではビルド失敗！</p>
+<p><img src="https://pbs.twimg.com/media/CTM7J__VEAA7Wuv.jpg" /></p>
+</section>
+<section id="rtools-3.3" class="slide level2">
+<h1>Rtools 3.3問題</h1>
+<p>読んでください：<a href="http://notchained.hatenablog.com/entry/2015/11/08/205523" class="uri">http://notchained.hatenablog.com/entry/2015/11/08/205523</a></p>
+</section>
+<section class="slide level2">
+<h1>自分でがんばってビルドする</h1>
+<p>ビルドしました。</p>
+<ul>
+<li class="fragment">ビルドできない</li>
+<li class="fragment">MobaXtermは32ビット版しかビルドできないことに気づく</li>
+<li class="fragment">MSYS2を使う</li>
+<li class="fragment">つらい</li>
+</ul>
+</section>
+<section id="rffi" class="slide level2">
+<h1>自分でRffiパッケージをつくる</h1>
+<p>元のパッケージをフォークしてきてもろもろ書き換える</p>
+<p><a href="https://github.com/yutannihilation/Rffi" class="uri">https://github.com/yutannihilation/Rffi</a></p>
+</section>
+<section id="rrust" class="slide level2">
+<h1>いよいよRからRustの関数をつかう</h1>
+<p>こんな感じのRustの関数を書く</p>
+<pre class="rs"><code>#[no_mangle]
+pub extern fn fib(n: u32) -&gt; u32 {
+    if n == 0 || n == 1 {
+        n
+    } else {
+        fib(n - 1) + fib(n - 2)
+    }
+}</code></pre>
+</section>
+<section id="rrust-1" class="slide level2">
+<h1>いよいよRからRustの関数をつかう</h1>
+<p>こんな感じのCargo.tomlを置く</p>
+<pre class="toml"><code>[package]
+name = &quot;fib&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;yutannihilation &lt;XXXXXXXX@example.com&gt;&quot;]
+
+[lib]
+name = &quot;fib&quot;
+crate-type = [&quot;dylib&quot;]</code></pre>
+</section>
+<section id="rrust-2" class="slide level2">
+<h1>いよいよRからRustの関数をつかう</h1>
+<p>こんな感じのRの関数をつくる</p>
+<pre class="sourceCode r"><code class="sourceCode r">fib &lt;-<span class="st"> </span>function(x){
+  Rffi::<span class="kw">callCIF</span>(
+    <span class="dt">cif =</span> Rffi::<span class="kw">prepCIF</span>(<span class="dt">retType  =</span> Rffi::uint32Type, <span class="dt">argTypes =</span> <span class="kw">list</span>(Rffi::uint32Type)),
+    <span class="dt">sym =</span> <span class="st">&quot;fib&quot;</span>,
+    x
+  )
+}</code></pre>
+</section>
+<section id="rrust-3" class="slide level2">
+<h1>いよいよRからRustの関数をつかう</h1>
+<p>動かす</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fib</span>(40L)
+<span class="co">#&gt; [1] 102334155</span></code></pre>
+</section>
+<section class="slide level2">
+<h1>まとめ</h1>
+<ul>
+<li class="fragment">Rustははやい</li>
+<li class="fragment">RustははやいけどRからRustを使うまでには時間がかかる</li>
+<li class="fragment"></li>
+</ul>
 </section>
     </div>
   </div>

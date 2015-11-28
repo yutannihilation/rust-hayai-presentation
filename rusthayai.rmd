@@ -1,5 +1,5 @@
 ---
-title: "RからRustの関数を使う"
+title: "「RからRustの関数をつかう → はやい」と言おうとしたらめっちゃ時間がかかった話"
 date: "`r Sys.Date()`"
 author: "Hiroaki Yutani\n(@yutannihilation)"
 output:
@@ -13,13 +13,119 @@ output:
 
 ## Rustとは
 
+* Mozillaが開発中の言語
 * はやい
-* Cの置き換えを目指している
+* 安全
 
 ![](rust-logo-128x128-blk.png)
 
-## FFI
+## なぜRustか
+
+* Rcppガチ勢コワイ
+* ゼロから覚えるならC/C++よりRustの方が楽そう
+* C/C++は環境構築が大変。Rustはインストーラでさくっとインストールできる
+
+> - もしかしてRustを覚えればCとかC++触らなくてもいいのでは？？
+
+## FFI(Foreign Function Interface)
+
+* あるプログラミング言語から他のプログラミング言語で定義された関数などを利用するための機構
+
+> - つまりRcppみたいな？？（あんまり理解してない）
+
+## 各言語のFFI
+
+> - Ruby: Ruby-FFI
+> - Python: CFFI
+> - Node.js: node-ffi
+> - R: Rffi
 
 ## Rffi
 
-## 
+なんだRでもFFI使えるのか。ほっ。
+
+## Rffiナンデ？？？
+
+Windowsではビルド失敗！
+
+![](https://pbs.twimg.com/media/CTM7J__VEAA7Wuv.jpg)
+
+## Rtools 3.3問題
+
+読んでください：http://notchained.hatenablog.com/entry/2015/11/08/205523
+
+## 自分でがんばってビルドする
+
+ビルドしました。
+
+>- ビルドできない
+>- MobaXtermは32ビット版しかビルドできないことに気づく
+>- MSYS2を使う
+>- つらい
+
+
+## 自分でRffiパッケージをつくる
+
+元のパッケージをフォークしてきてもろもろ書き換える
+
+https://github.com/yutannihilation/Rffi
+
+
+## いよいよRからRustの関数をつかう
+
+こんな感じのRustの関数を書く
+
+```rs
+#[no_mangle]
+pub extern fn fib(n: u32) -> u32 {
+    if n == 0 || n == 1 {
+        n
+    } else {
+        fib(n - 1) + fib(n - 2)
+    }
+}
+```
+
+## いよいよRからRustの関数をつかう
+
+こんな感じのCargo.tomlを置く
+
+```toml
+[package]
+name = "fib"
+version = "0.1.0"
+authors = ["yutannihilation <XXXXXXXX@example.com>"]
+
+[lib]
+name = "fib"
+crate-type = ["dylib"]
+```
+
+## いよいよRからRustの関数をつかう
+
+こんな感じのRの関数をつくる
+
+```r
+fib <- function(x){
+  Rffi::callCIF(
+    cif = Rffi::prepCIF(retType  = Rffi::uint32Type, argTypes = list(Rffi::uint32Type)),
+    sym = "fib",
+    x
+  )
+}
+```
+
+## いよいよRからRustの関数をつかう
+
+動かす
+
+```r
+fib(40L)
+#> [1] 102334155
+```
+
+## まとめ
+
+>- Rustははやい
+>- RustははやいけどRからRustを使うまでには時間がかかる
+>- 
