@@ -143,7 +143,7 @@ fib(40L)
 
 ## そうだ、Japan.Rに行こう！
 
-日程：12月5日（土） <span stype="color: red;">← 来週！</span>  
+日程：12月5日（土） <span style="color: red;">← 来週！</span>  
 場所：リクルート GINZA8
 
 https://atnd.org/events/71243
